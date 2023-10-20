@@ -75,7 +75,7 @@ const viewAllEmployees = function () {
         console.log(`====================================================================================`);
         console.log(`                                 Current Employees:                                 `);
         console.log(`====================================================================================`);
-        console.table(res);
+        console.table(result);
         console.log(`====================================================================================`);
         startPrompt();
     })
@@ -95,7 +95,7 @@ const viewRoles = function () {
         console.log(`====================================================================================`);
         console.log(`                                 Current Roles:                                 `);
         console.log(`====================================================================================`);
-        console.table(res);
+        console.table(result);
         console.log(`====================================================================================`);
         startPrompt();    })
 };
@@ -107,7 +107,7 @@ const viewDepartments = function () {
         console.log(`====================================================================================`);
         console.log(`                                 Departments                                        `);
         console.log(`====================================================================================`);
-        console.table(res);
+        console.table(result);
         console.log(`====================================================================================`);
         startPrompt();    })
 };
@@ -131,7 +131,7 @@ const addEmployee = function () {
         roleSql = 'SELECT id, title FROM role'
         db.query(roleSql, (err, result) => {  
             if (err) throw err;  
-            let roleArr = res.map(({id, title}) => 
+            let roleArr = result.map(({id, title}) => 
                 ({ name: title, value: id}));
         inquirer.prompt([
             {
@@ -144,7 +144,7 @@ const addEmployee = function () {
             managerSql = `SELECT id, CONCAT(first_name, ' ', last_name) AS manager FROM employee`
             db.query(managerSql, (err, result) => {  
                 if (err) throw err;
-                let managerArr = res.map(({id, manager}) => ({name: manager, value: id}))
+                let managerArr = result.map(({id, manager}) => ({name: manager, value: id}))
                 managerArr.unshift({name: "None", value: null})
                 inquirer.prompt([
                     {
@@ -172,7 +172,7 @@ const addRole = function () {
     sql = `SELECT * FROM departments`;
     db.query(sql, (err, result) => {
         if (err) throw err;
-        let depChoices = res.map(({id, name}) => ({name: name, value: id}));
+        let depChoices = result.map(({id, name}) => ({name: name, value: id}));
         inquirer.prompt([
             {
                 name: 'department',
